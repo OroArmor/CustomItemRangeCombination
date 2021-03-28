@@ -14,6 +14,8 @@ echo "🔑 Decrypting files..."
 
 gpg --quiet --batch --yes --decrypt --passphrase="${GPG_SECRET}" \
 	    --output eliorona-sign.asc .build/eliorona-sign.asc.gpg
+	    
+mkdir ~/.gradle
 
 gpg --quiet --batch --yes --decrypt --passphrase="${GPG_SECRET}" \
 	    --output ~/.gradle/gradle.properties .build/usrgradle.properties.gpg
