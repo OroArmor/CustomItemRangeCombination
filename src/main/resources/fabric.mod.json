@@ -1,34 +1,32 @@
 {
   "schemaVersion": 1,
-  "id": "oro_mod_template",
+  "id": "custom_item_range_combination",
   "version": "${version}",
 
-  "name": "OroArmor's Mod Template",
-  "description": "This is a template mod for OroArmor.",
+  "name": "Custom Item Range Combination",
+  "description": "Allows for the changing of how far item entities combine in Minecraft.",
   "authors": [
     "OroArmor"
   ],
   "contact": {
     "homepage": "https://oroarmor.com/",
-    "sources": "https://github.com/OroArmor/oro-mod-template"
+    "sources": "https://github.com/OroArmor/CustomItemRangeCombination"
   },
 
   "license": "MIT",
-  "icon": "assets/oro_mod_template/icon.png",
+  "icon": "assets/custom_item_range_combination/icon.png",
 
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.oroarmor.oro_mod_template.Mod"
+      "com.oroarmor.custom_item_range_combination.Mod"
     ]
   },
   "mixins": [
-    "oro_mod_template.mixins.json"
+    "custom_item_range_combination.mixins.json"
   ],
 
   "depends": {
-    "fabricloader": ">=0.11.3",
-    "fabric": "*",
-    "minecraft": "1.16.x"
+    "fabricloader": ">=0.11.3"
   }
 }

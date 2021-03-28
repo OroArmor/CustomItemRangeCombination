@@ -56,11 +56,11 @@ dependencies {
     mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
-    // Fabric API. This is technically optional, but you probably want it anyway.
-    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+    ["fabric-command-api-v1"].forEach {
+        include(modImplementation(fabricApi.module(it, project.fabric_version)))
+    }
 
-    // PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
-    // You may need to force-disable transitiveness on them.
+    modImplementation(include("com.oroarmor:oro-config-fabric:2.0.0"))
 }
 
 processResources {
@@ -127,16 +127,16 @@ uploadArchives {
                 authentication(userName: ossrhUsername, password: ossrhPassword)
             }
             pom.project {
-                name 'Oro Mod Template'
+                name 'Custom Item Range Combination'
                 packaging 'jar'
                 // optionally artifactId can be defined here
-                description 'This is a template mod for OroArmor.'
-                url 'http://github.com/OroArmor/oro-mod-template'
+                description 'Allows for the changing of how far item entities combine in Minecraft.'
+                url 'http://github.com/OroArmor/CustomItemRangeCombination'
 
                 scm {
-                    connection 'scm:git:git://github.com/OroArmor/oro-mod-template.git'
-                    developerConnection 'scm:git:ssh://github.com:OroArmor/oro-mod-template.git'
-                    url 'http://github.com/OroArmor/oro-mod-template'
+                    connection 'scm:git:git://github.com/OroArmor/CustomItemRangeCombination.git'
+                    developerConnection 'scm:git:ssh://github.com:OroArmor/CustomItemRangeCombination.git'
+                    url 'http://github.com/OroArmor/CustomItemRangeCombination'
                 }
 
                 licenses {
@@ -171,7 +171,7 @@ curseforge {
 //				requiredDependency "fabric-api"
 //			}
             mainArtifact(remapJar.archivePath) {
-                displayName = "Oro Mod Template - $rootProject.mod_version"
+                displayName = "Custom Item Range Combination - $rootProject.mod_version"
             }
             afterEvaluate {
                 uploadTask.dependsOn("build")
@@ -202,7 +202,7 @@ task github {
 
     doLast {
         def github = org.kohsuke.github.GitHub.connectUsingOAuth(System.getenv().GITHUB_TOKEN as String)
-        def repository = github.getRepository("OroArmor/oro-mod-template")
+        def repository = github.getRepository("OroArmor/CustomItemRangeCombination")
 
         def releaseBuilder = new org.kohsuke.github.GHReleaseBuilder(repository, project.mod_version)
         releaseBuilder.name("$project.project_name $project.mod_version for $project.minecraft_version")

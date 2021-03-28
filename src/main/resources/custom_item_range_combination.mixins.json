@@ -1,9 +1,10 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "com.oroarmor.oro_mod_template.mixin",
+  "package": "com.oroarmor.custom_item_range_combination.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "ItemEntityMixin"
   ],
   "client": [
   ],

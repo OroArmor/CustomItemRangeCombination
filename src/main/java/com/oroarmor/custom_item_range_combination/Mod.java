@@ -22,12 +22,45 @@
  * SOFTWARE.
  */
 
-package com.oroarmor.oro_mod_template;
+package com.oroarmor.custom_item_range_combination;
+
+import java.io.File;
+
+import com.google.common.collect.ImmutableList;
+import com.oroarmor.config.Config;
+import com.oroarmor.config.ConfigItem;
+import com.oroarmor.config.ConfigItemGroup;
+import com.oroarmor.config.command.ConfigCommand;
 
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
+import net.fabricmc.loader.api.FabricLoader;
 
 public class Mod implements ModInitializer {
+
+	public static final String MOD_ID = "custom_item_range_combination";
+
+	public static class ModConfig extends Config {
+		public ModConfig() {
+			super(ImmutableList.of(new ConfigGroup()), new File(FabricLoader.getInstance().getConfigDir().toFile(), MOD_ID+".json"), MOD_ID);
+		}
+
+		public static class ConfigGroup extends ConfigItemGroup {
+			public ConfigGroup() {
+				super(ImmutableList.of(ITEM_COMBINE_RANGE), MOD_ID);
+			}
+
+			public static final ConfigItem<Double> ITEM_COMBINE_RANGE = new ConfigItem<>("item-combine-range", 0.5, MOD_ID+".item_combine_range", configItem -> Mod.CONFIG.saveConfigToFile());
+		}
+	}
+
+	public static final Config CONFIG = new ModConfig();
+
 	@Override
 	public void onInitialize() {
+		CONFIG.readConfigFromFile();
+		CONFIG.saveConfigToFile();
+
+		CommandRegistrationCallback.EVENT.register(new ConfigCommand(CONFIG)::register);
 	}
 }
