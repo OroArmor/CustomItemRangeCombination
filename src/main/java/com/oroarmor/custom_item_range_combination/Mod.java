@@ -42,15 +42,15 @@ public class Mod implements ModInitializer {
 
 	public static class ModConfig extends Config {
 		public ModConfig() {
-			super(ImmutableList.of(new ConfigGroup()), new File(FabricLoader.getInstance().getConfigDir().toFile(), MOD_ID+".json"), MOD_ID);
+			super(ImmutableList.of(new ConfigGroup()), new File(FabricLoader.getInstance().getConfigDir().toFile(), MOD_ID+".json"), "item_combine");
 		}
 
 		public static class ConfigGroup extends ConfigItemGroup {
 			public ConfigGroup() {
-				super(ImmutableList.of(ITEM_COMBINE_RANGE), MOD_ID);
+				super(ImmutableList.of(ITEM_COMBINE_RANGE), "range");
 			}
 
-			public static final ConfigItem<Double> ITEM_COMBINE_RANGE = new ConfigItem<>("item-combine-range", 0.5, MOD_ID+".item_combine_range", configItem -> Mod.CONFIG.saveConfigToFile());
+			public static final ConfigItem<Double> ITEM_COMBINE_RANGE = new ConfigItem<>("item_combine_range", 0.5, MOD_ID+".item_combine_range", configItem -> Mod.CONFIG.saveConfigToFile());
 		}
 	}
 

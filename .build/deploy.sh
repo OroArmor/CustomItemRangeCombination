@@ -25,7 +25,7 @@ gpg --fast-import --no-tty --batch --yes eliorona-sign.asc
 echo "📦 Publishing..."
 
 ./gradlew build
-./gradlew github curseforge publishToModrinth --parallel
+./gradlew generateChangelog github curseforge publishToModrinth
 ./gradlew uploadArchives -Psign
 
 echo "✅ Done!"

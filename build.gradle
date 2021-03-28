@@ -35,6 +35,8 @@ repositories {
     }
 }
 
+ext.changelog = ""
+
 tasks.withType(Sign) {
     onlyIf { project.hasProperty("sign") }
 }
@@ -167,6 +169,10 @@ curseforge {
             releaseType = "release"
             project.game_versions.split(",").each { String game_version -> addGameVersion game_version }
             addGameVersion "Fabric"
+
+            changelogType = "html"
+            changelog = project.ext.changelog
+
 //			relations {
 //				requiredDependency "fabric-api"
 //			}
@@ -191,6 +197,7 @@ task publishToModrinth(type: TaskModrinthUpload) {
     projectId = project.modrinth_id
     versionNumber = project.version
     uploadFile = remapJar.archivePath // This is the java jar task
+    changelog = project.ext.changelog
     project.game_versions.split(",").each { String game_version -> addGameVersion(game_version) }
     addLoader('fabric')
 }
@@ -206,10 +213,24 @@ task github {
 
         def releaseBuilder = new org.kohsuke.github.GHReleaseBuilder(repository, project.mod_version)
         releaseBuilder.name("$project.project_name $project.mod_version for $project.minecraft_version")
-        releaseBuilder.body("Version: ${project.version}")
+        releaseBuilder.body(project.ext.changelog)
         releaseBuilder.commitish("master")
 
         def ghRelease = releaseBuilder.create()
         ghRelease.uploadAsset(file("${project.rootDir}/build/libs/${archivesBaseName}-${version}.jar"), "application/java-archive");
     }
+}
+
+task generateChangelog {
+    def changelogFile = file("CHANGELOG.md")
+    def contents = ""
+    changelogFile.withReader { reader ->
+        def line
+        while ((line = reader.readLine()) != null)
+            contents += line + "\n"
+    }
+
+    def changelogs = contents.split("\\-\\-\\-\\-")
+    project.ext.changelog = changelogs.find { log -> log.contains(project.version) }
+    println project.ext.changelog
 }
