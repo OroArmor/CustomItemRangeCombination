@@ -97,37 +97,39 @@ import org.gradle.api.artifacts.repositories.PasswordCredentials
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            name = 'Custom Item Range Combination'
-            description = 'Allows for the changing of how far item entities combine in Minecraft.'
-            url = 'http://github.com/OroArmor/CustomItemRangeCombination'
-
-            licenses {
-                license {
-                    name = 'MIT'
-                    url = 'https://mit-license.org/'
-                }
-            }
-
-            developers {
-                developer {
-                    id = 'OroArmor'
-                    name = 'Eli Orona'
-                    email = 'eliorona@live.com'
-                    url = 'oroarmor.com'
-                }
-            }
-
-            scm {
-                connection = 'scm:git:git://github.com/OroArmor/CustomItemRangeCombination.git'
-                developerConnection = 'scm:git:ssh://github.com:OroArmor/CustomItemRangeCombination.git'
+            pom {
+                name = 'Custom Item Range Combination'
+                description = 'Allows for the changing of how far item entities combine in Minecraft.'
                 url = 'http://github.com/OroArmor/CustomItemRangeCombination'
+
+                licenses {
+                    license {
+                        name = 'MIT'
+                        url = 'https://mit-license.org/'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id = 'OroArmor'
+                        name = 'Eli Orona'
+                        email = 'eliorona@live.com'
+                        url = 'oroarmor.com'
+                    }
+                }
+
+                scm {
+                    connection = 'scm:git:git://github.com/OroArmor/CustomItemRangeCombination.git'
+                    developerConnection = 'scm:git:ssh://github.com:OroArmor/CustomItemRangeCombination.git'
+                    url = 'http://github.com/OroArmor/CustomItemRangeCombination'
+                }
             }
         }
     }
 
     repositories {
         maven {
-            name = 'Sonatype Staging'
+            name = 'SonatypeStaging'
             url = 'https://oss.sonatype.org/service/local/staging/deploy/maven2/'
             credentials(PasswordCredentials) {
                 def ossrhUsername = 'OroArmor'
@@ -139,7 +141,7 @@ publishing {
         }
 
         maven {
-            name = 'Sonatype Snapshot'
+            name = 'SonatypeSnapshot'
             url = 'https://oss.sonatype.org/content/repositories/snapshots/'
             credentials(PasswordCredentials) {
                 def ossrhUsername = 'OroArmor'
